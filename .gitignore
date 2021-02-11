@@ -4,8 +4,12 @@
 # Whitelist some individual files and directories
 !.gitignore
 
-# Whitelist just the directory but nothing inside it (to maintain same code structure)
-!data
+# Whitelist the data structure for the mocks
+!data/
 data/*
-!data/mocks
-data/mocks/
+!data/mocks/
+data/mocks/*
+!data/mocks/download_data.txt
+
+
+
