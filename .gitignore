@@ -17,4 +17,5 @@ data/obs/*
 !data/obs/XQ-100_DLA_catalogue.txt
 !data/obs/XQ-100_catalogue.txt
 !data/obs/XQ-100_catalogue_seeing.txt
+!data/obs/download_data.txt
 
