@@ -1,5 +1,11 @@
-#ignore all
-*
-#except
-!test
+# Blacklist files/folders in the 'lyb_pk' directory 
+/*
+
+# Whitelist some individual files and directories
 !.gitignore
+
+# Whitelist just the directory but nothing inside it (to maintain same code structure)
+!data
+data/*
+!data/mocks
+data/mocks/
