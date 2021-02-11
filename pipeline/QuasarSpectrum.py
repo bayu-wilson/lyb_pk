@@ -46,7 +46,7 @@ class QuasarSpectrum(object):
         self.redshift = redshift
         self.unnormalized_flux = unnormalized_flux
         self.mask_dla = mask_dla  #will be set if inis.remove_dla == True
-        self.kmax = kmax #set in resolution if there is a maximum wavenumber 
+        self.kmax = kmax #set in resolution if there is a maximum wavenumber
     def plot_spectrum(self,norm=True):
         """
         Plots normalized or unnormalized qso spectrum.
@@ -93,7 +93,7 @@ class QuasarSpectrum(object):
             seeing_table  = pd.read_csv(path_to_seeing,delim_whitespace=True,names=['qsonum', 'catelog', 'longname', 'name', 'RA', 'DEC', 'z_qso', 'aperture', 'seeing_min', 'seeing_max'])
             #print("seeing min= ", seeing_table['seeing_min'][seeing_table['name']=='J1024+1819'].values)  #Matt M: testing that this works
             #exit();
-            
+
             qname_array,z_array = catalog_table['qso_name'].values,catalog_table['redshifts'].values
             nqso = 100
             cls.dla_table = dla_table
@@ -149,8 +149,8 @@ class QuasarSpectrum(object):
         else:
 
             ### LOADING IN DATA NORMALLY ###
-            released_path = "../data/obs/XQ-100/released2/{0}_uvb-vis.txt".format(name)
-            continuum_path = "../data/obs/XQ-100/continuum2/{0}_cont.txt".format(name)
+            released_path = "../data/obs/XQ-100/released/{0}_uvb-vis.txt".format(name) #2/11/21 changed released2 to released
+            continuum_path = "../data/obs/XQ-100/continuum/{0}_cont.txt".format(name) #2/11/21 changed continuum2 to continuum
             qso_table = pd.read_csv(released_path, delim_whitespace=True, skiprows = 1,usecols=(0,1,2,3,4),
                                         names = ("wav", "flx", "ferr", "res","dloglam"))
             cont_table = pd.read_csv(continuum_path, delim_whitespace=True, skiprows = 1,usecols=(0,1),
@@ -176,8 +176,8 @@ class QuasarSpectrum(object):
 
             if 'ADC' in tag and name in opt.ADC_off_qsos:
                 print("ADC off: quasar ", name, " is not being used")
-                mask_dla *= False 
-            
+                mask_dla *= False
+
             m1 = wavelength>=(opt.overlap_maxwav+opt.overlap_minwav)/2. #we do not use overlap region
             if inis.carswell_res: #feb27
                 resolution[m1] = opt.R_VIS_carswell
@@ -191,10 +191,10 @@ class QuasarSpectrum(object):
                 #print("seeing = ", seeing_min, seeing_max)
                 FWHMseeing = 0.5*(seeing_min+seeing_max)
                 #FWHMseeing = np.sqrt(seeing_min*seeing_max) #geometric mean
-                
+
                 if FWHMseeing > inis.SEEING_MAXIMUM: #false if bad seeing
-                      mask_dla *= False 
-                
+                      mask_dla *= False
+
                 if ("goodseeing" in tag and FWHMseeing >0.75) or ("badseeing" in tag and FWHMseeing <0.75) or ("mediumseeing" in tag and (FWHMseeing >.9 or FWHMseeing <0.65)):
                     mask_dla *= False  #make it so quasar is not used
                     if "goodseeing" in tag:
@@ -204,14 +204,14 @@ class QuasarSpectrum(object):
                     else:
                          print("badseeing", FWHMseeing)
 
-                    
+
                 #don't use quasar
                 if np.isnan(FWHMseeing):
                     mask_dla *= False  #make it so quasar is not used
                     FWHMseeing = 1 #since not using it anyway this is easy way to continue
 
-        
-                         
+
+
                 #print("FWHM = ", FWHMseeing, cls.seeing_table[cls.seeing_table.name == name])
                 for arm in ['VIS', 'UV']:
                     x =(FWHMseeing/slitVIS if arm == 'VIS' else FWHMseeing/slitUV)
@@ -219,11 +219,11 @@ class QuasarSpectrum(object):
                     x3 =(seeing_max/slitVIS if arm == 'VIS' else seeing_max/slitUV)
 
                     if "useseeingmin" in tag:
-                        x =(seeing_min/slitVIS if arm == 'VIS' else seeing_min/slitUV)                   
-                    
+                        x =(seeing_min/slitVIS if arm == 'VIS' else seeing_min/slitUV)
+
                     if "addp2" in tag:  #a bias
-                        x += 0.2; x2+=0.2; x3+=0.2; 
-                    
+                        x += 0.2; x2+=0.2; x3+=0.2;
+
                     def sigmaRes(x, xref, arm1):
                         if arm1 == 'UV':
                             if xref < 0.8:
@@ -247,24 +247,24 @@ class QuasarSpectrum(object):
                         res *= .8; res2 *= 0.8; res3 *=0.8
                     elif "10percenthigherres" in tag:
                         res *= .9; res2 *= 0.9; res3 *=0.9
-                    
+
                     if arm == 'UV':
                         resolution[~m1] = res
                     else:
                         resolution[m1] = res
 
 
-                         
-                        
+
+
                     if not np.isnan(seeing_min+seeing_max):
                         #if "conservative" in tag:
                         #    kmax_dict[arm] = np.sqrt(.1/(res3**2 - res2**2 + 1e-5))  #maximum wavenumber for 5% error
                         #else:
                         kmax_dict[arm] = np.sqrt(.1/(res3**2 - res2**2 + 1e-5))  #maximum wavenumber for 10% error
-                        print(arm, " kmax = ", kmax_dict[arm])
-                        
-                    print(arm, " FWHM = ", seeing_min, seeing_max, res, res2, kmax_dict[arm], opt.R_UV_carswell,  kmax_dict[arm]);
-                    
+                        #print(arm, " kmax = ", kmax_dict[arm])
+
+                    #print(arm, " FWHM = ", seeing_min, seeing_max, res, res2, kmax_dict[arm], opt.R_UV_carswell,  kmax_dict[arm]);
+
         if "wR2" in tag and not inis.wR2:
             # Using new column
             resolution = np.ones_like(qso_table.res.values)*11 * 0.2
@@ -272,10 +272,10 @@ class QuasarSpectrum(object):
             flux = flux**rescale_flux #np.exp(rescale_flux*np.log(flux)) #flux**rescale_flux #july20
         dloglambda = qso_table.dloglam.values
 
-        
+
         if inis.remove_dla:
             cls.getDLAmask(name, mask_dla, wavelength, flux)
-            
+
         return cls(name=name,redshift=redshift,
                    wavelength=wavelength, flux=flux, err_flux=err_flux,
                    resolution=resolution, mask_dla=mask_dla, dloglambda=dloglambda, kmax=kmax_dict,
@@ -303,12 +303,12 @@ class QuasarSpectrum(object):
                 #mask central most observed part
                 mask_dla *= (wavelength<(lambda_dla-deltalambda_dla))|(wavelength>(lambda_dla+deltalambda_dla)) #lyman alpha
                 mask_dla *= (wavelength<(lambda_dlb-deltalambda_dlb))|(wavelength>(lambda_dlb+deltalambda_dlb)) #lyman beta
-                
+
                 #devide out effect in flux
                 flux[mask_dla] = flux[mask_dla]/dla_profile[mask_dla]
-                flux[mask_dla] = flux[mask_dla]/dlb_profile[mask_dla] 
-    
-  
+                flux[mask_dla] = flux[mask_dla]/dlb_profile[mask_dla]
+
+
 
                 #import sys
                 #import matplotlib.pyplot as plt
@@ -388,7 +388,7 @@ class QuasarSpectrum(object):
         mask = ((self.wavelength>owave_min)&(self.wavelength<owave_max)&
                 (self.flux>opt.min_trans)&(zpix>=zedges[zidx])&(zpix<zedges[zidx+1]))
 
-        #Use only UV arm for overlap redshift 
+        #Use only UV arm for overlap redshift
         if inis.no_overlap:
             if(rwave_rest == opt.lya_rest and zedges[zidx] < 3.6 and zedges[zidx+1]>3.6):
                 mask *= (self.wavelength>opt.overlap_maxwav)   #using UV arm  #|(self.wavelength<opt.overlap_minwav)
@@ -396,10 +396,10 @@ class QuasarSpectrum(object):
             #mask = ((mask)&(res_mask))
 
             #
- 
+
         #print("self.mask_dla ", self.mask_dla, np.sum(mask), np.sum(self.mask_dla*mask))
         return mask*self.mask_dla #july 16
-        
+
 
     @staticmethod
     def get_npow(mf,nvar,dloglambda): #line 121 main.py
@@ -431,13 +431,13 @@ class QuasarSpectrum(object):
         """
         mask = ((kpix>=kedges[kidx])&(kpix<kedges[kidx+1])) & (kpix<kmax) #&(kpix!=0))
         return mask
-        
+
     def get_pk_subsets(self,kpix,pk,zmask,kmask,corr_tag,npow):
         """
         Slices previously computed power spectrum by k-bin (specified by kmask) and (potentially) applies noise and resolution correction
         """
         kpix_sub,pk_sub = kpix[kmask], pk[kmask]
-        R = self.resolution[zmask][kmask] 
+        R = self.resolution[zmask][kmask]
         dv_array = opt.c_kms*np.log(10)*self.dloglambda[zmask][kmask]   #Matt M: COME back and understand this
 
         #print("resolution = ", np.mean(R))
@@ -482,7 +482,7 @@ class QuasarSpectrum(object):
         """
         za = self.wavelength[mask_lya]/opt.lya_rest-1
         zb = self.wavelength[mask_lyb]/opt.lyb_rest-1
-        
+
         rfa = self.flux[mask_lya]/mf_lya -1
         rfb = self.flux[mask_lyb]/mf_lyb -1
 
@@ -493,11 +493,11 @@ class QuasarSpectrum(object):
         dlamb = self.dloglambda[mask_lyb]
         resa = self.resolution[mask_lya]
         resb = self.resolution[mask_lyb]
-        
+
         new_af_mask = (za>np.min(zb))&(za<np.max(zb))
         new_bf_mask = (zb>np.min(za))&(zb<np.max(za))
 
-        
+
         if not ('uncorrectedoffsets' in inis.tag):
             def find_nearest(array, value):
                 array = np.asarray(array)
@@ -513,12 +513,12 @@ class QuasarSpectrum(object):
                 for i in range(len(array2)):
                     idx = (np.abs(array - array2[i] +dzcentering)).argmin()
                     dx = np.fabs(array[idx]-array2[i]+dzcentering)
-                    #print((array[idx]-array2[i])/(1+array1[idx])*3e5, i, idx) 
+                    #print((array[idx]-array2[i])/(1+array1[idx])*3e5, i, idx)
                     if dx < dxold:
                         dxold = dx
                         idxold = idx
                         idxold2 = i
-                          
+
                 return array1[idxold], array2[idxold2], dxold
 
 
@@ -531,23 +531,24 @@ class QuasarSpectrum(object):
 
             if 'leftcentered' in inis.tag: #this is correct
                 dzcentering = (za_masked[1] - za_masked[0])/2 - (zb_masked[1] - zb_masked[0])/2
-                print("dzcentering = ", dzcentering)
+                #print("dzcentering = ", dzcentering)
             else:
-                print("THIS CENTERING IS NOT WHAT WAS DONE!!!!! DON't USE THIS")
+                print("THIS CENTERING IS NOT WHAT WAS DONE!!!!! DON'T USE THIS")
                 dzcentering = 0 #assumes the za and wavelengths are for center of bin
-            
+
             [za1, zb1, dx1] = find_nearest_array(za_masked[:5], zb_masked[:5], dzcentering)
             [za2, zb2, dx2] = find_nearest_array(za_masked[-5:], zb_masked[-5:], dzcentering)
 
-            
+
             new_af_mask = (za>=za1)&(za<=za2)
             new_bf_mask = (zb>=zb1)&(zb<=zb2)
             #new_bf_mask = (zb>np.min(zb))&(zb<np.max(zb))
             #print("dv = ", zb[1], 3e5*(np.min(za[new_af_mask])-za[0])/(1+za[1]), 3e5*(zb[1]-np.min(zb[new_bf_mask]))/(1+zb[0]))
-            print("v offset", (np.min(za[new_af_mask])- np.min(zb[new_bf_mask]))/(1+np.min(za[new_af_mask]))*3e5, (np.max(za[new_af_mask])- np.max(zb[new_bf_mask]))/(1+np.max(za[new_af_mask]))*3e5)
+            #print("v offset", (np.min(za[new_af_mask])- np.min(zb[new_bf_mask]))/(1+np.min(za[new_af_mask]))*3e5, (np.max(za[new_af_mask])- np.max(zb[new_bf_mask]))/(1+np.max(za[new_af_mask]))*3e5)
             if 'leftcentered' in inis.tag:
-                 print("corrected v offset", (np.min(za[new_af_mask])- np.min(zb[new_bf_mask]) +dzcentering)/(1+np.min(za[new_af_mask]))*3e5, (np.max(za[new_af_mask])- np.max(zb[new_bf_mask])+dzcentering)/(1+np.max(za[new_af_mask]))*3e5)
-        
+                pass
+                 #print("corrected v offset", (np.min(za[new_af_mask])- np.min(zb[new_bf_mask]) +dzcentering)/(1+np.min(za[new_af_mask]))*3e5, (np.max(za[new_af_mask])- np.max(zb[new_bf_mask])+dzcentering)/(1+np.max(za[new_af_mask]))*3e5)
+
         N_a = np.sum(new_af_mask)#aug5
         N_b = np.sum(new_bf_mask)#aug5
         #if N_a>N_b: # beta is reference
@@ -574,10 +575,10 @@ class QuasarSpectrum(object):
         rfa_k = np.fft.fft(rfa[new_af_mask])[:N]*dva
         rfb_k = np.fft.fft(rfb[new_bf_mask])[:N]*dvb
         resa = resa[new_af_mask][:N]
-        resb = resb[new_bf_mask][:N]      
-        
+        resb = resb[new_bf_mask][:N]
+
         N=len(rfa_k)
-        print("mask lengths ", N_a*dva, N_b*dvb, dva, dvb)
+        #print("mask lengths ", N_a*dva, N_b*dvb, dva, dvb)
         V =  N_a*dva  if N_a< N_b else N_b*dvb  # will always select latter I think
         dk = 2*np.pi/V
         k=dk*np.arange(0,N,1)

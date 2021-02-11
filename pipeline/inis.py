@@ -4,8 +4,8 @@ import os
 ########################################################################################
 ######################## Control Center for entire pipeline ############################
 ########################################################################################
-cat_name = "obs/XQ-100_catalogue" #"mocks/XQ-100_catalogue_n100" 
-tag = "lyb_wNR_leftcentered" #badseeing_addp2"
+cat_name = "obs/XQ-100_catalogue" #"mocks/XQ-100_catalogue_n100"
+tag = "lyb_nocorr_leftcentered" #"lyb_wNR_leftcentered" #badseeing_addp2"
 mock_or_obs = cat_name.split("/")[0]
 
 subtract_metal_power = True
@@ -27,10 +27,6 @@ add_sithree = False # also only works on mocks
 
 #bootstraps
 BayusBootstrap = 0 #0=mine is much faster but otherwise identical
-
-
-
-
 
 ########################################################################################
 #See line 86 in QuasarSpectrum.py for when `cat_name` gets used
@@ -73,10 +69,10 @@ save_pk_with_err = True #plot_pk.py
 if mock_or_obs == 'obs':
     save_pk_path = "../output/pk_{0}_{1}_DLA{2}_metal{3}_res{4}.csv".format(mock_or_obs,tag, remove_dla, subtract_metal_power, carswell_res)
     save_pk_with_err_path = "../output/pk_errboot_{0}_{1}_DLA{2}_metal{3}_res{4}_nb{5}".format(mock_or_obs,tag, remove_dla, subtract_metal_power, carswell_res, M)
-else: 
+else:
     save_pk_path = "../output/pk_{0}_{1}.csv".format(mock_or_obs,tag)
     save_pk_with_err_path = "../output/pk_errboot_{0}_{1}.txt".format(mock_or_obs,tag)
-    
+
 save_boot_mf = True #bootstrap_pk.py
 save_boot_mf_path = "../output/mf_boot_{0}_{1}_nb{2}_DLA{3}.csv".format(mock_or_obs,tag, M, remove_dla)
 
@@ -106,7 +102,7 @@ save_flux_pdf_path = "../output/flux_pdf_lya.txt"
 #
 #save_pk_fig_path = "figures/pk_{0}_{1}.pdf".format(mock_or_obs,tag)
 #save_pk_fig_path = "figures/pk_{0}_{1}.pdf".format(mock_or_obs,tag)
-#    
+#
 #save_pk_ratio_fig = True #plot_ratio_pk.py
 #save_pk_ratio_fig_path = "figures/pk_{0}_ratio_{1}.pdf".format(mock_or_obs,ntag)
 #

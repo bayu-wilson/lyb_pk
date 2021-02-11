@@ -179,7 +179,7 @@ for zidx in range(opt.zbinlen): #aug20
         ###################################################################
         name = qso_arr[qidx].name
         #[kmaxa, kmaxb, kmaxab] = qso_arr[qidx].kmax_arr  #Matt M:added this
-            
+
         zpix_a = qso_arr[qidx].get_zpix(opt.lya_rest)
         zmask_a = qso_arr[qidx].get_zmask(forest=(opt.lya_min,opt.lya_max,opt.lya_rest),
                                         zpix=zpix_a,zidx=zidx,zedges=opt.zbin_edges,name=name)
@@ -190,30 +190,30 @@ for zidx in range(opt.zbinlen): #aug20
         nchunks_tot = opt.how_many_chunks(zmask_tot)
 
         Lya_str = 'VIS' if opt.overlap_maxwav < opt.lya_rest*(1+opt.zbin_centers[zidx]) else 'UV'
-        Lyb_str = 'VIS' if opt.overlap_maxwav < opt.lyb_rest*(1+opt.zbin_centers[zidx]) else 'UV'        
+        Lyb_str = 'VIS' if opt.overlap_maxwav < opt.lyb_rest*(1+opt.zbin_centers[zidx]) else 'UV'
         kmax = [qso_arr[qidx].kmax[Lya_str], qso_arr[qidx].kmax[Lyb_str], 2**.5*(1./qso_arr[qidx].kmax[Lya_str]**2 +1./qso_arr[qidx].kmax[Lyb_str]**2)**-0.5]
         #print("kmax = ", qso_arr[qidx].kmax,  kmax[2])
         #exit()
-        
+
         for chunk_idx_a in range(nchunks_a):
             #looping through each chunk. Probably 1. maybe 2. not more than 3.
             zmask_a_sub = opt.get_chunks(zmask_a)[chunk_idx_a]
             chunk_length = len(zmask_a_sub) #opt.get_chunk_length(zmask_a)
-            
+
             #if chunk_length >1200:
             #    print("very long segment: ", np.min(zmask_a), np.max(zmask_a))
             #print("chunck = ", len(zmask_a_sub), chunk_length)
-            
+
             if chunk_length >opt.min_pix:
                 chunklengthlist_a[zidx] = np.append(chunklengthlist_a[zidx],  chunk_length) #make a list of number of pixels used
                 #auto-power if passes minimum pized constraint
-                kpix,pk = qso_arr[qidx].get_autopower(mf_output_df.mf_a[zidx],zmask_a_sub) 
+                kpix,pk = qso_arr[qidx].get_autopower(mf_output_df.mf_a[zidx],zmask_a_sub)
                 for kidx in range(opt.kbinlen):
                     npow = mf_output_df.npow_a.values[zidx]
                     kmask = qso_arr[qidx].get_kmask(kpix=kpix,kidx=kidx,kedges=opt.kbin_edges, kmax=kmax[0])
                     if inis.individual_qso_kmax == 1 and qso_arr[qidx].get_kmax() < opt.kbin_centers[kidx]:  #Matt M: added this and next line to not add highest k
                             break
-                    pk_sub = qso_arr[qidx].get_pk_subsets(kpix=kpix,pk=pk,zmask=zmask_a_sub,kmask=kmask,corr_tag=tag,npow=npow) #pk in the kidx'th kbin                                                                      #Matt M: This is where resolution correction occurs. 
+                    pk_sub = qso_arr[qidx].get_pk_subsets(kpix=kpix,pk=pk,zmask=zmask_a_sub,kmask=kmask,corr_tag=tag,npow=npow) #pk in the kidx'th kbin                                                                      #Matt M: This is where resolution correction occurs.
                     msrmnt_in_kbin[1,kidx] += np.sum(pk_sub) #adding paa in k,z bin for the qidx'th quasar
                     count_in_kbin[1,kidx] += len(pk_sub) #adding number of paa pixels
                     msrmnt_in_kbin[6,kidx] += len(pk_sub) ##adding number of npix_aa pixels
@@ -221,14 +221,14 @@ for zidx in range(opt.zbinlen): #aug20
                     s = "{4:g} 0 {0:g} {1:g} {2:g} {3:g}".format(opt.zbin_centers[zidx],opt.kbin_centers[kidx], np.sum(pk_sub),len(pk_sub),qidx) #july1 #writing to external file
                     #0 means paa
                     f.write(s+'\n') #july1
-      
+
         ###################################################################
         #################### LYB FOREST: P TOTAL TOTAL ####################
         ###################################################################
         for chunk_idx_tot in range(nchunks_tot):
             zmask_tot_sub = opt.get_chunks(zmask_tot)[chunk_idx_tot]
             chunk_length = len(zmask_tot_sub) #opt.get_chunk_length(zmask_tot)
-            print("chunck ttot", chunk_length)
+            #print("chunck ttot", chunk_length)
             if (chunk_length >opt.min_pix):
                 chunklengthlist_t[zidx] = np.append(chunklengthlist_t[zidx],  chunk_length)
                 kpix,pk = qso_arr[qidx].get_autopower(mf_output_df.mf_tot[zidx],zmask_tot_sub)
@@ -238,7 +238,7 @@ for zidx in range(opt.zbinlen): #aug20
                     if inis.individual_qso_kmax == 1 and kmaxb < opt.kbin_centers[kidx]:  #Matt M: added this and next line to not add highest k
                             break
                     pk_sub = qso_arr[qidx].get_pk_subsets(kpix=kpix,pk=pk,zmask=zmask_tot_sub,kmask=kmask,corr_tag=tag,npow=npow)
-                                       #Matt M: This is where resolution correction occurs. 
+                                       #Matt M: This is where resolution correction occurs.
                     msrmnt_in_kbin[2,kidx] += np.sum(pk_sub) #adding ptot in k,z bin for the qidx'th quasar
                     count_in_kbin[2,kidx] += len(pk_sub) #adding number of ptot pixels
                     msrmnt_in_kbin[7,kidx] += len(pk_sub) #adding number of npix_tt pixels
@@ -338,20 +338,20 @@ mf_output_df.to_csv(inis.save_mf_path,index=False)
 x.to_csv(inis.save_pk_path,index=False)
 
 
-print("OVI added?: ", inis.add_ovi)
-print("SiIII added?: ", inis.add_sithree)
-print("LYB added?: ", inis.add_beta)
-print("Carswell Resolution?: ", inis.carswell_res)
-print("Don't use the overlap region at all?: ", inis.no_overlap)
+print("OVI added?                           : ", inis.add_ovi)
+print("SiIII added?                         : ", inis.add_sithree)
+print("LYB added?                           : ", inis.add_beta)
+print("Carswell Resolution?                 : ", inis.carswell_res)
+print("Don't use the overlap region at all? : ", inis.no_overlap)
 if (inis.remove_dla)&inis.cat_name.startswith('obs'):
-    print("DLA's removed?: ", inis.remove_dla)
+    print("DLA's removed?                       : ", inis.remove_dla)
 else:
-    print("DLA's removed?: False")
-print("Metals Subtracted?: ", inis.subtract_metal_power) #see line 310
-print("Continuum Corrected?: ", inis.continuum_correction)
-print("Log-binning for wavenumber (k)?: ", inis.log_kbinning)
-print("saved pre-boot mf file here: ", inis.save_kzq_mf_path)
-print("saved pre-boot pk file here: ", inis.save_kzq_pk_path)
-print("saved mf here: ", inis.save_mf_path)
-print("saved pf here: ", inis.save_pk_path)
+    print("DLA's removed?                       : False")
+print("Metals Subtracted?                   : ", inis.subtract_metal_power) #see line 310
+print("Continuum Corrected?                 : ", inis.continuum_correction)
+print("Log-binning for wavenumber (k)?      : ", inis.log_kbinning)
+print("saved pre-boot mf file here          : ", inis.save_kzq_mf_path)
+print("saved pre-boot pk file here          : ", inis.save_kzq_pk_path)
+print("saved mf here                        : ", inis.save_mf_path)
+print("saved pf here                        : ", inis.save_pk_path)
 print("---- Script complete ----")
