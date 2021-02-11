@@ -1,4 +1,4 @@
-# Blacklist files/folders in the 'lyb_pk' directory 
+# Blacklist files/folders in the 'lyb_pk' directory
 /*
 
 # Whitelist some individual files and directories
@@ -19,3 +19,11 @@ data/obs/*
 !data/obs/XQ-100_catalogue_seeing.txt
 !data/obs/download_data.txt
 
+# Whitelist the pipeline code
+!pipeline/
+pipeline/*
+!pipeline/main.py
+!pipeline/options.py
+!pipeline/inis.py
+!pipeline/boot_indo.py
+!pipeline/QuasarSpectrum.py
