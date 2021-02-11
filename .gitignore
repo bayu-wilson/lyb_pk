@@ -4,12 +4,17 @@
 # Whitelist some individual files and directories
 !.gitignore
 
-# Whitelist the data structure for the mocks
+# Whitelist the code structure for the mocks
 !data/
 data/*
 !data/mocks/
 data/mocks/*
 !data/mocks/download_data.txt
 
-
+# Whitelist the code structure for observations
+!data/obs/
+data/obs/*
+!data/obs/XQ-100_DLA_catalogue.txt
+!data/obs/XQ-100_catalogue.txt
+!data/obs/XQ-100_catalogue_seeing.txt
 
