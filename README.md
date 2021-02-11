@@ -10,4 +10,6 @@ We use 100 z~3.5-4.5 quasar spectra from the XQ-100 legacy survey (Lopez et al. 
 The analysis pipeline was tested on synthetic mock quasar Lyα and Lyβ forests from the [Sherwood Simulation suite](https://www.nottingham.ac.uk/astronomy/sherwood/). [Here](https://www.dropbox.com/sh/c4zr9pbd5zg8i8d/AADp6uloIl6nBWEOmGcwir2Oa?dl=0) is an example of a mock XQ-100 dataset.
 
 ### How to run the code
-1) `git clone`
+1) Go to desired local directory and clone the repository: `git clone git@github.com:bayu-wilson/lyb_pk.git`
+2) Download observational data [here](https://www.dropbox.com/sh/eijuc5jhg4olo0x/AAAGRMf110uiSAe49L3_RJ7Ga?dl=0) and synthetic data [Here](https://www.dropbox.com/sh/c4zr9pbd5zg8i8d/AADp6uloIl6nBWEOmGcwir2Oa?dl=0). 
+3)
