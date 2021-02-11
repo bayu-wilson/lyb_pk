@@ -11,5 +11,5 @@ The analysis pipeline was tested on synthetic mock quasar Lyα and Lyβ forests 
 
 ### How to run the code
 1) Go to desired local directory and clone the repository: `git clone git@github.com:bayu-wilson/lyb_pk.git`
-2) Download observational data [here](https://www.dropbox.com/sh/eijuc5jhg4olo0x/AAAGRMf110uiSAe49L3_RJ7Ga?dl=0) and synthetic data [Here](https://www.dropbox.com/sh/c4zr9pbd5zg8i8d/AADp6uloIl6nBWEOmGcwir2Oa?dl=0). 
+2) Download observational data [here](https://www.dropbox.com/sh/eijuc5jhg4olo0x/AAAGRMf110uiSAe49L3_RJ7Ga?dl=0) and synthetic data [here](https://www.dropbox.com/sh/c4zr9pbd5zg8i8d/AADp6uloIl6nBWEOmGcwir2Oa?dl=0). 
 3)
