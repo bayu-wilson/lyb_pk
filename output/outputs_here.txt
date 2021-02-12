@@ -1,0 +1,2 @@
+After running the pipeline, the results will be outputted into this folder.
+
