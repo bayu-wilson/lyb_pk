@@ -4,12 +4,17 @@ import os
 ########################################################################################
 ######################## Control Center for entire pipeline ############################
 ########################################################################################
-cat_name = "obs/XQ-100_catalogue" #"mocks/XQ-100_catalogue_n100"
-tag = "lyb_nocorr_leftcentered" #"lyb_wNR_leftcentered" #badseeing_addp2"
+use_obs = 1
+if use_obs:
+    cat_tag = ["obs/XQ-100_catalogue","corrNR_leftcentered"] #observations
+else:
+    cat_tag = ["mocks/XQ-100_catalogue_n100","lyb_nocorr"] #mocks
+cat_name = cat_tag[0] #"mocks/XQ-100_catalogue_n100"
+tag = cat_tag[1] #"lyb_wNR_leftcentered" #badseeing_addp2"
 mock_or_obs = cat_name.split("/")[0]
 
 subtract_metal_power = True
-continuum_correction = False
+continuum_correction = True
 M = 1000 # Bootstrap samples, line 19 in boot_indo.py
 remove_dla = True
 wR2 = False # If True use original R2, if False, use wR column (11 km/s)
@@ -132,8 +137,8 @@ save_flux_pdf_path = "../output/flux_pdf_lya.txt"
 #save_paper_mf_v2 = True
 #save_paper_mf_v2_path = "figures/paper_mf_v2.pdf"
 #
-#save_paper_mf_v3 = True
-#save_paper_mf_v3_path = "figures/paper_mf_v3.pdf"
+save_paper_mf_v3 = True
+save_paper_mf_v3_path = "figures/paper_mf_v3.pdf"
 #
 #save_paper_err_pk = True
 #save_paper_err_pk_path = "figures/paper_err_pk.pdf"
@@ -150,8 +155,8 @@ save_flux_pdf_path = "../output/flux_pdf_lya.txt"
 #save_paper_pk_v2 = True
 #save_paper_pk_v2_path = "figures/paper_pk_v2.pdf"
 
-#save_paper_pk_v3 = True
-#save_paper_pk_v3_path = "figures/paper_pk_v3.pdf"
+# save_paper_pk_v3 = True
+# save_paper_pk_v3_path = "figures/paper_pk_v3.pdf"
 
 #save_paper_pk_v4 = True
 #save_paper_pk_v4_path = "figures/paper_pk_v4.pdf"

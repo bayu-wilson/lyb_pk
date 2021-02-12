@@ -308,9 +308,9 @@ print("Done!\n")
 #        #f.write
 #        f.write(str(chunklengthlist[i]))
 #Matt M: for my own use to know lengths of skewers: should delete
-np.savez("Lyaskewerlengths", chunklengthlist_a[0], chunklengthlist_a[1], chunklengthlist_a[2], chunklengthlist_a[3], chunklengthlist_a[4], chunklengthlist_a[5],chunklengthlist_a[6], kwds=['3.0','3.2', '3.4', '3.6', '3.8', '4.0', '4.2']) # for i in range(opt.zbinlen)], header=str())
-np.savez("LyTskewerlengths", chunklengthlist_t[0], chunklengthlist_t[1], chunklengthlist_t[2], chunklengthlist_t[3], chunklengthlist_t[4], chunklengthlist_t[5],chunklengthlist_t[6], kwds=['3.0','3.2', '3.4', '3.6', '3.8', '4.0', '4.2'])
-np.savez("LyCskewerlengths", chunklengthlist_c[0], chunklengthlist_c[1], chunklengthlist_c[2], chunklengthlist_c[3], chunklengthlist_c[4], chunklengthlist_c[5],chunklengthlist_c[6], kwds=['3.0','3.2', '3.4', '3.6', '3.8', '4.0', '4.2'])
+# np.savez("Lyaskewerlengths", chunklengthlist_a[0], chunklengthlist_a[1], chunklengthlist_a[2], chunklengthlist_a[3], chunklengthlist_a[4], chunklengthlist_a[5],chunklengthlist_a[6], kwds=['3.0','3.2', '3.4', '3.6', '3.8', '4.0', '4.2']) # for i in range(opt.zbinlen)], header=str())
+# np.savez("LyTskewerlengths", chunklengthlist_t[0], chunklengthlist_t[1], chunklengthlist_t[2], chunklengthlist_t[3], chunklengthlist_t[4], chunklengthlist_t[5],chunklengthlist_t[6], kwds=['3.0','3.2', '3.4', '3.6', '3.8', '4.0', '4.2'])
+# np.savez("LyCskewerlengths", chunklengthlist_c[0], chunklengthlist_c[1], chunklengthlist_c[2], chunklengthlist_c[3], chunklengthlist_c[4], chunklengthlist_c[5],chunklengthlist_c[6], kwds=['3.0','3.2', '3.4', '3.6', '3.8', '4.0', '4.2'])
 
 #Finding Lyman beta power
 for i in range(len_zab):
