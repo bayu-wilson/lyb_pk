@@ -12,4 +12,6 @@ The analysis pipeline was tested on synthetic mock quasar Lyα and Lyβ forests 
 ### How to run the code
 1) Go to desired local directory and clone the repository: `git clone git@github.com:bayu-wilson/lyb_pk.git`
 2) Download observational data [here](https://www.dropbox.com/sh/eijuc5jhg4olo0x/AAAGRMf110uiSAe49L3_RJ7Ga?dl=0) and synthetic data [here](https://www.dropbox.com/sh/c4zr9pbd5zg8i8d/AADp6uloIl6nBWEOmGcwir2Oa?dl=0). 
-3)
+3) In control center for the pipeline, `lyb_pk/pipeline/inis.py`, you can decide to use observational data (set `use_obs=1`) or use synthetic data (set `use_obs=0`). This file contains other flags that may be changed. For example, you may choose whether to remove DLAs, use logarithmic k-binning, or make a continuum correction based off of Faucher-Giguére+2008.
+4) In the `lyb_pk/pipeline/` directory, run `python main.py`. This calculates the mean flux in each redshift bin and power spectrum in each redshift \& wavenumber bin. This outputs the results into `lyb_pk/output/`.
+5) `lyb_pk/plot/` contains plotting routines to make the mean flux and power spectra figures similar to those in the paper.
