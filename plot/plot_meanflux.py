@@ -72,10 +72,10 @@ ax.errorbar(z_mf,mfa,yerr=err_mfa, #F_ALPHA MEAN FLUX, CORRECTED
             color=colors[0],capsize=capsize,markersize=markersize,lw=lw,capthick=capthick,elinewidth=elinewidth)
 ax.errorbar(z_mf*1.001,mfa_uncorr,yerr=err_mfa, #F_ALPHA MEAN FLUX, UNCORRECTED
             color=colors[0],capsize=capsize,markersize=markersize,lw=lw,capthick=capthick,ls=linestyles[1],elinewidth=elinewidth)
-ax.errorbar(z_mf,mft,yerr=err_mft,color=colors[1], #F_TOTAL MEAN FLUX, CORRECTED
-            capsize=capsize,markersize=markersize,lw=lw,capthick=capthick,elinewidth=elinewidth)
-ax.errorbar(z_mf*1.000,mft_uncorr,yerr=err_mft,color=colors[1], #F_TOTAL MEAN FLUX, UNCORRECTED
-            capsize=capsize,markersize=markersize,lw=lw,capthick=capthick,ls=linestyles[1],elinewidth=elinewidth)
+ax.errorbar(z_mf,mft,yerr=err_mft, #F_TOTAL MEAN FLUX, CORRECTED
+            color=colors[1],capsize=capsize,markersize=markersize,lw=lw,capthick=capthick,elinewidth=elinewidth)
+ax.errorbar(z_mf*1.000,mft_uncorr,yerr=err_mft, #F_TOTAL MEAN FLUX, UNCORRECTED
+            color=colors[1],capsize=capsize,markersize=markersize,lw=lw,capthick=capthick,ls=linestyles[1],elinewidth=elinewidth)
 ax.errorbar(z_mf,mfb,yerr=err_mfb, #F_BETA MEAN FLUX, CORRECTED
             color=colors[2],capsize=capsize,markersize=markersize,lw=lw,capthick=capthick,elinewidth=elinewidth)
 ax.errorbar(z_mf*0.998,mfb_uncorr,yerr=err_mfb, #F_BETA MEAN FLUX, UNCORRECTED
