@@ -36,6 +36,8 @@ output/*
 # Whitelist figure folder
 !plot/
 plot/*
+!plot/plot_meanflux.py
 !plot/figures/
 plot/figures/*
 !plot/figures/figures_here.txt
+
