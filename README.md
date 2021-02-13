@@ -15,4 +15,4 @@ The analysis pipeline was tested on synthetic mock quasar Lyα and Lyβ forests 
 3) In control center for the pipeline, `lyb_pk/pipeline/inis.py`, you can decide to use observational data (set `use_obs=1`) or use synthetic data (set `use_obs=0`). This file contains other flags that may be changed. For example, you may choose whether to remove DLAs, use logarithmic k-binning, or make a continuum correction based off of Faucher-Giguére+2008.
 4) In the `lyb_pk/pipeline/` directory, run `python main.py`. This calculates the mean flux in each redshift bin and power spectrum in each redshift \& wavenumber bin. This outputs the results into `lyb_pk/output/`.
 5) The uncertainties of the measurements are quantified using the bootstrap method. Run `python boot_indo.py` to calculate the error bars.
-6) Finally, `lyb_pk/plot/` contains plotting routines to make the mean flux and power spectra figures similar to those in the paper.
+6) Finally, the `lyb_pk/plot/` directory contains plotting routines to make the mean flux (`plot_meanflux.py`) and power spectra (`plot_pk.py`) figures similar to those in the paper.
