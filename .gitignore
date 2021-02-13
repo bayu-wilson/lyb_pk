@@ -37,7 +37,12 @@ output/*
 !plot/
 plot/*
 !plot/plot_meanflux.py
+!plot/plot_pk.py
 !plot/figures/
 plot/figures/*
 !plot/figures/figures_here.txt
+
+
+
+
 
