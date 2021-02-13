@@ -32,3 +32,10 @@ pipeline/*
 !output/
 output/*
 !output/outputs_here.txt
+
+# Whitelist figure folder
+!plot/
+plot/*
+!plot/figures/
+plot/figures/*
+!plot/figures/figures_here.txt
