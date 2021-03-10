@@ -43,7 +43,7 @@ z_mf = mf_df.z
 colors = ['red','blue','green','black','gray'] # 3 colors for mfa,mft,mfb
 labels = [r"$\overline{F}_{\beta}$",r"$\overline{F}_{T}$",r"$\overline{F}_{\alpha}$",
             r"Model: $\gamma$=1.5", r"Model: $\gamma$=1.0",
-            "This work", "Iršič+2017","Becker+2013",
+            "This work", "Iršič+2013","Becker+2013",
             "Continuum Uncorrected", "Continuum Corrected"]
 linestyles = ['-','dashed','-.','dotted']
 custom_lines = [Line2D([0], [0], color=colors[2], lw=9),
@@ -88,7 +88,7 @@ custom_lines[7] = ax.errorbar([],[],color='k',fmt='o',markersize=7,lw=1,capthick
 
 ax.legend(custom_lines,labels,fontsize=25,loc='lower left',ncol=2,frameon=False)# bbox_to_anchor=(1, 0.5))
 
-figname = "plot_meanflux.pdf"
+figname = "figures/plot_meanflux.pdf"
 if save_plot:
     plt.savefig(figname,bbox_inches='tight')
 print(figname)
