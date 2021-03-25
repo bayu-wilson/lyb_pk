@@ -149,8 +149,8 @@ class QuasarSpectrum(object):
         else:
 
             ### LOADING IN DATA NORMALLY ###
-            released_path = "../data/obs/XQ-100/released/{0}_uvb-vis.txt".format(name) #2/11/21 changed released2 to released
-            continuum_path = "../data/obs/XQ-100/continuum/{0}_cont.txt".format(name) #2/11/21 changed continuum2 to continuum
+            released_path = "../data/obs/XQ-100/released2/{0}_uvb-vis.txt".format(name) #2/11/21 changed released2 to released
+            continuum_path = "../data/obs/XQ-100/continuum2/{0}_cont.txt".format(name) #2/11/21 changed continuum2 to continuum
             qso_table = pd.read_csv(released_path, delim_whitespace=True, skiprows = 1,usecols=(0,1,2,3,4),
                                         names = ("wav", "flx", "ferr", "res","dloglam"))
             cont_table = pd.read_csv(continuum_path, delim_whitespace=True, skiprows = 1,usecols=(0,1),
@@ -273,7 +273,7 @@ class QuasarSpectrum(object):
         dloglambda = qso_table.dloglam.values
 
 
-        if inis.remove_dla:
+        if inis.remove_dla and inis.use_obs:
             cls.getDLAmask(name, mask_dla, wavelength, flux)
 
         return cls(name=name,redshift=redshift,
@@ -304,7 +304,7 @@ class QuasarSpectrum(object):
                 mask_dla *= (wavelength<(lambda_dla-deltalambda_dla))|(wavelength>(lambda_dla+deltalambda_dla)) #lyman alpha
                 mask_dla *= (wavelength<(lambda_dlb-deltalambda_dlb))|(wavelength>(lambda_dlb+deltalambda_dlb)) #lyman beta
 
-                #devide out effect in flux
+                #divide out effect in flux
                 flux[mask_dla] = flux[mask_dla]/dla_profile[mask_dla]
                 flux[mask_dla] = flux[mask_dla]/dlb_profile[mask_dla]
 
@@ -532,6 +532,12 @@ class QuasarSpectrum(object):
             if 'leftcentered' in inis.tag: #this is correct
                 dzcentering = (za_masked[1] - za_masked[0])/2 - (zb_masked[1] - zb_masked[0])/2
                 #print("dzcentering = ", dzcentering)
+            elif 'offset' in inis.tag: #this is correct
+                OFFSET = -10 #km/s (I think this is right sign)
+                dzcentering = (za_masked[1] - za_masked[0])/2 - (zb_masked[1] - zb_masked[0])/2
+                if np.abs(dzcentering) > 1e-5: #this effectively checks if same arm or not
+                    dzcentering += OFFSET/3e5*(1+za_masked[1])
+                #print("dzcentering w/ offset = ", dzcentering)
             else:
                 print("THIS CENTERING IS NOT WHAT WAS DONE!!!!! DON'T USE THIS")
                 dzcentering = 0 #assumes the za and wavelengths are for center of bin
