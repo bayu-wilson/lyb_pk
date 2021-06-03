@@ -4,34 +4,35 @@ import os
 ########################################################################################
 ######################## Control Center for entire pipeline ############################
 ########################################################################################
-use_obs = 1
+use_obs = 1 #default 1 (true)
 if use_obs:
-    cat_tag = ["obs/XQ-100_catalogue","corrNR_leftcentered"] #observations
+    cat_tag = ["obs/XQ-100_catalogue","corrNR_offset"] #observations
 else:
-    cat_tag = ["mocks/XQ-100_catalogue_n100","lyb_nocorr"] #mocks
+    # cat_tag = ["mocks/XQ-100_catalogue_n100","lyb_nocorr"] #mocks
+    cat_tag = ["mocks/XQ-100_catalogue_n5000","lyb_nocorr_n5000"] #mocks
 cat_name = cat_tag[0] #"mocks/XQ-100_catalogue_n100"
 tag = cat_tag[1] #"lyb_wNR_leftcentered" #badseeing_addp2"
 mock_or_obs = cat_name.split("/")[0]
 
-subtract_metal_power = True
-continuum_correction = True
+subtract_metal_power = True #default True
+continuum_correction = False #default False
 M = 1000 # Bootstrap samples, line 19 in boot_indo.py
-remove_dla = True
-wR2 = False # If True use original R2, if False, use wR column (11 km/s)
-log_kbinning = True
-carswell_res = 0 #1 == use the resolution from Carswell+18, 0== use my resolution
-no_overlap = True  #currently only uses VIS arm in z=3.6 Lyman-alpha
+remove_dla = True #default true
+wR2 = False # default False. If True use original R2, if False, use wR column (11 km/s)
+log_kbinning = True #default true
+carswell_res = 0 #default 0. 1 == use the resolution from Carswell+18, 0== use my resolution
+no_overlap = True  #default True. currently only uses VIS arm in z=3.6 Lyman-alpha
 SEEING_MAXIMUM = 1.5 #limit to reasonably good seeing
 
-individual_qso_kmax = 0   #This is a vestigal option that looks like it is irrelevant (kmax is enforced eslewhere)
+individual_qso_kmax = 0  #default 0. This is a vestigal option that looks like it is irrelevant (kmax is enforced eslewhere)
 
 #flags for mocks
-add_beta = False # only works on "noB" mocks, see line 188 in QuasarSpectrum.py
-add_ovi = False # also only works on mocks
-add_sithree = False # also only works on mocks
+add_beta = False #default False. only works on "noB" mocks, see line 188 in QuasarSpectrum.py
+add_ovi = False #default False. also only works on mocks
+add_sithree = False #default False. also only works on mocks
 
 #bootstraps
-BayusBootstrap = 0 #0=mine is much faster but otherwise identical
+BayusBootstrap = 0 #default 0. 0=mine is much faster but otherwise identical
 
 ########################################################################################
 #See line 86 in QuasarSpectrum.py for when `cat_name` gets used
@@ -40,7 +41,7 @@ BayusBootstrap = 0 #0=mine is much faster but otherwise identical
 #Common `tag`: "lyb_nocorr","corrNR","lyb_nocorr_n5000","gaussian_n600","noB_onlyA", "noB_n5000", "uncorr", "gaussian"
 
 
-ntag = "n100" # default
+ntag = "n100" #default
 nqso = 100
 if "n5000" in tag:
     ntag = "n5000"
@@ -67,13 +68,13 @@ rescale_flux = 1.0
 #####################
 save_mf_path = "../output/mf_{0}_{1}.csv".format(mock_or_obs,tag)
 save_mf_with_err = True #get_errorbars.py
-save_mf_with_err_path = "../output/mf_errboot_{0}_{1}.txt".format(mock_or_obs,tag)  #bootstrapped value
+save_mf_with_err_path = "../output/mf_errboot_{0}_{1}.csv".format(mock_or_obs,tag)  #bootstrapped value
 
 save_pk = True #main.py
 save_pk_with_err = True #plot_pk.py
 if mock_or_obs == 'obs':
     save_pk_path = "../output/pk_{0}_{1}_DLA{2}_metal{3}_res{4}.csv".format(mock_or_obs,tag, remove_dla, subtract_metal_power, carswell_res)
-    save_pk_with_err_path = "../output/pk_errboot_{0}_{1}_DLA{2}_metal{3}_res{4}_nb{5}".format(mock_or_obs,tag, remove_dla, subtract_metal_power, carswell_res, M)
+    save_pk_with_err_path = "../output/pk_errboot_{0}_{1}_DLA{2}_metal{3}_res{4}_nb{5}.csv".format(mock_or_obs,tag, remove_dla, subtract_metal_power, carswell_res, M)
 else:
     save_pk_path = "../output/pk_{0}_{1}.csv".format(mock_or_obs,tag)
     save_pk_with_err_path = "../output/pk_errboot_{0}_{1}.txt".format(mock_or_obs,tag)

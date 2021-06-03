@@ -7,6 +7,8 @@ import pandas as pd
 import sys
 sys.path.append('../pipeline')
 import options as opt
+import inis
+#Note for Bayu -  This is the same as `paper_pk_v3.py`
 
 ##### Control Area ######
 save_plot = True
@@ -49,7 +51,9 @@ custom_lines = [Line2D([0], [0], color=colors[0], lw=9, marker=None),
 # pkdata = pd.read_csv("../final_results/pk_errboot_obs_corrNR.txt")
 # pkdata = pd.read_csv("../output/pk_errboot_obs_corrNR_leftcentered_DLATrue_metalTrue_res0_nb1000.csv")
 # pkdata = pd.read_csv("../output/pk_errboot_obs_corrNR_DLATrue_metalTrue_res0_nb1000.csv")
-pkdata = pd.read_csv("testing.txt")
+pkdata = pd.read_csv(inis.save_pk_with_err_path)
+print("Plotting data from {}".format(inis.save_pk_with_err_path))
+#"../output/pk_errboot_obs_corrNR_leftcentered_DLATrue_metalTrue_res0_nb1000.csv")#inis.save_pk_with_err_path)
 # pkdata_corrcont = pd.read_csv("../output/continuum_correction/pk_errboot_obs_corrNR_continuum_corrected.txt")
 
 # plt.style.use('classic')
@@ -66,7 +70,7 @@ plt.grid(False)
 
 # fig.delaxes(ax[-1][2])
 fig.set_size_inches(15,9)
-ax[-1,1].set_xlabel(r"$log_{10}(k/[km^{-1}s])$",fontsize=25)
+ax[-1,1].set_xlabel(r"$log_{10}(k/$[km$^{-1}$s])",fontsize=25)
 #[i.set_xlabel(r"log$_{10}(k/[km^{-1}s])$") for i in ax[-1]] #xlabels on bottom row
 # ax[1,1].set_ylabel(r"$k P(k) / \pi$")
 

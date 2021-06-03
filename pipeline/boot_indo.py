@@ -86,8 +86,8 @@ else: #mine
                         pk_arr[pidx*opt.zbinlen+zidx][kidx] += pk_qso[qidx][pidx*opt.zbinlen+zidx][kidx]
                         N_arr[pidx*opt.zbinlen+zidx][kidx] += N_qso[qidx][pidx*opt.zbinlen+zidx][kidx]
         boot_pk_arr[m] = pk_arr/(N_arr+1e-10)
-                    
-        
+
+
 mf_summed = pd.read_csv(inis.save_mf_path)
 mf_boot = np.reshape(np.mean(boot_mf_arr,axis=0),(2,opt.zbinlen))
 
@@ -137,7 +137,7 @@ if inis.save_boot_mf:
 
 
 
-        
+
 if inis.save_boot_pk:
     np.savetxt(inis.save_boot_pk_path,np.reshape(boot_pk_corr,(M,opt.zbinlen*3*opt.kbinlen)).T)
     p = np.loadtxt(inis.save_boot_pk_path)
@@ -152,7 +152,7 @@ if inis.save_boot_pk:
     print("err_paa = ", np.cov(p).diagonal()[0:N_kz])
     print("err_ptt = ", np.cov(p).diagonal()[N_kz:2*N_kz])
     print("err_pab = ", np.cov(p).diagonal()[2*N_kz:3*N_kz])
-      
+
     err_paa_sub = err_paa[0*opt.kbinlen:3*opt.kbinlen]
     err_ptt_sub = err_ptt[4*opt.kbinlen:7*opt.kbinlen]
     err_pbb_sub = np.sqrt(err_paa_sub**2+err_ptt_sub**2)
@@ -167,11 +167,11 @@ if inis.save_boot_pk:
                         pkdata.pab,err_pab, pkdata.npix_ab,
                         pkdata.pbb, err_pbb,))
         df_pk = pd.DataFrame(pk_everything,columns=columns)
-        df_pk.to_csv(inis.save_pk_with_err_path + '.csv', index=False)
+        df_pk.to_csv(inis.save_pk_with_err_path, index=False)
 
 opt.updt(M, M)
 print("Saving bootstraps here:\n{0}\n{1}".format(inis.save_boot_mf_path,inis.save_boot_pk_path))
-print("Saving new datatables here:\n{0}\n{1}".format(inis.save_mf_with_err_path,inis.save_pk_with_err_path+ '.csv'))
+print("Saving new datatables here:\n{0}\n{1}".format(inis.save_mf_with_err_path,inis.save_pk_with_err_path))
 
 # ### INCLUDING RESOLUTION UNCERTAINTY
 # sigma_res_aa = opt.find_res_uncertainty(pkdata.k,pkdata.z,pkdata.Paa)

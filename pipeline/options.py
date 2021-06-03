@@ -31,8 +31,6 @@ v_beta = -1801 #km/s Matt M: appears in a function that is never used
 
 #O VI
 ovi_min = 978
-
-
 ovi_max = 1014
 ovi_rest_d1 = 1031.91 # 1032  #Matt M changed to add sig fig
 fosc_ovi_d1 = 0.13290
@@ -210,7 +208,7 @@ def get_chunk_length(mask):
         if mask[i]>mask[i+1]:
             chunk_edges.append(i+1)
     chunk_edges.sort()
-    
+
     if len(chunk_edges) == 2:
         if chunk_edges[1] - chunk_edges[0] >1200:
             print("ce1", chunk_edges[1], chunk_edges[0])
@@ -219,7 +217,7 @@ def get_chunk_length(mask):
         if chunk_edges[0] >1200:
             print("ce2", chunk_edges)
         return chunk_edges[0]
-        
+
 def get_chunks(mask):
     #Used in line ~190 of main.py
     chunk_edges = []

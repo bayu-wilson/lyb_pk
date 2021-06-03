@@ -533,7 +533,7 @@ class QuasarSpectrum(object):
                 dzcentering = (za_masked[1] - za_masked[0])/2 - (zb_masked[1] - zb_masked[0])/2
                 #print("dzcentering = ", dzcentering)
             elif 'offset' in inis.tag: #this is correct
-                OFFSET = -10 #km/s (I think this is right sign)
+                OFFSET = -5 #km/s (I think this is right sign)
                 dzcentering = (za_masked[1] - za_masked[0])/2 - (zb_masked[1] - zb_masked[0])/2
                 if np.abs(dzcentering) > 1e-5: #this effectively checks if same arm or not
                     dzcentering += OFFSET/3e5*(1+za_masked[1])

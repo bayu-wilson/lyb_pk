@@ -325,7 +325,7 @@ for i in range(1,opt.zbinlen):
 
 
 ########## SUBTRACTING REDSIDE METAL POWER ##########
-if inis.subtract_metal_power:
+if inis.subtract_metal_power and inis.use_obs:
     metal_power = np.concatenate([np.loadtxt('../data/obs/pk_xs_avg.txt')]*opt.zbinlen) #subtracting metals again sep25
     x.paa = x.paa.values-metal_power
     x.ptt = x.ptt.values-metal_power
@@ -341,13 +341,13 @@ x.to_csv(inis.save_pk_path,index=False)
 print("OVI added?                           : ", inis.add_ovi)
 print("SiIII added?                         : ", inis.add_sithree)
 print("LYB added?                           : ", inis.add_beta)
-print("Carswell Resolution?                 : ", inis.carswell_res)
+print("Carswell Resolution?                 : ", bool(inis.carswell_res))
 print("Don't use the overlap region at all? : ", inis.no_overlap)
 if (inis.remove_dla)&inis.cat_name.startswith('obs'):
     print("DLA's removed?                       : ", inis.remove_dla)
 else:
     print("DLA's removed?                       : False")
-print("Metals Subtracted?                   : ", inis.subtract_metal_power) #see line 310
+print("Metals Subtracted?                   : ", bool(inis.subtract_metal_power and inis.use_obs)) #see line 310
 print("Continuum Corrected?                 : ", inis.continuum_correction)
 print("Log-binning for wavenumber (k)?      : ", inis.log_kbinning)
 print("saved pre-boot mf file here          : ", inis.save_kzq_mf_path)
