@@ -10,7 +10,7 @@ The Ly-α forest is the large-scale structure probe for which we appear to have 
 
 
 ### Data
-We use 100 z~3.5-4.5 quasar spectra from the XQ-100 legacy survey [(Lopez et al. 2016)](https://ui.adsabs.harvard.edu/abs/2016A%26A...594A..91L/abstract). You may download the data [here](https://www.dropbox.com/sh/eijuc5jhg4olo0x/AAAGRMf110uiSAe49L3_RJ7Ga?dl=0).
+We use 100 z~3.5-4.5 quasar spectra from the XQ-100 legacy survey from [Lopez et al. 2016](https://ui.adsabs.harvard.edu/abs/2016A%26A...594A..91L/abstract). You may download the data [here](https://www.dropbox.com/sh/eijuc5jhg4olo0x/AAAGRMf110uiSAe49L3_RJ7Ga?dl=0).
 The analysis pipeline was tested on synthetic mock quasar Lyα and Lyβ forests from the [Sherwood Simulation suite](https://www.nottingham.ac.uk/astronomy/sherwood/). [Here](https://www.dropbox.com/sh/c4zr9pbd5zg8i8d/AADp6uloIl6nBWEOmGcwir2Oa?dl=0) is an example of a mock XQ-100 dataset.
 
 ### How to run the code
