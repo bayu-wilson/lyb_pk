@@ -1,2 +1,4 @@
 After running the pipeline, the results will be outputted into this folder.
 
+Final power spectrum measurement table: pk_obs_corrNR_offset_DLATrue_metalTrue_res0.csv
+Final mean flux measurement table: mf_obs_corrNR_offset.csv
