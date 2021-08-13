@@ -32,6 +32,9 @@ pipeline/*
 !output/
 output/*
 !output/outputs_here.txt
+!output/pk_obs_corrNR_offset_DLATrue_metalTrue_res0.csv
+!output/mf_obs_corrNR_offset.csv
+
 
 # Whitelist figure folder
 !plot/
